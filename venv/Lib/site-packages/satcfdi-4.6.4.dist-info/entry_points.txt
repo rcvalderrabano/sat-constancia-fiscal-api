@@ -1,0 +1,2 @@
+[console_scripts]
+satcfdi = satcfdi.cli.main:main
