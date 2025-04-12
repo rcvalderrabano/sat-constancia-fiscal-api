@@ -76,6 +76,7 @@ API construida con **FastAPI** para obtener información de la **Constancia de S
   "Correo electrónico": "rgacapitalfinance@outlook.com",
   "AL": "QUERETARO 1"
 }
+```
 
 **Ejemplo de respuesta para persona fisica**:
 
@@ -109,8 +110,6 @@ API construida con **FastAPI** para obtener información de la **Constancia de S
   "Correo electrónico": "rcruz.valderrabano@gmail.com",
   "AL": "QUERETARO 1"
 }
-
-
     ```
 
 ### 2. Obtener información usando un código QR
