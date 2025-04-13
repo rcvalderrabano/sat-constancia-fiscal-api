@@ -110,12 +110,12 @@ API construida con **FastAPI** para obtener información de la **Constancia de S
   "Correo electrónico": "rcruz.valderrabano@gmail.com",
   "AL": "QUERETARO 1"
 }
-    ```
+```
 
+```
 ### 2. Obtener información usando un código QR
 
-- **Endpoint**: `GET /sat/csf/qr/`
-
+´´- **Endpoint**: `GET /sat/csf/qr/`
     Ejemplo de solicitud:
 
     ```bash
@@ -125,5 +125,4 @@ API construida con **FastAPI** para obtener información de la **Constancia de S
     Ejemplo de respuesta (similar a la anterior).
 
 ## Licencia
-
 Este proyecto está licenciado bajo la **Licencia GPL-3.0**. Puedes ver los términos completos en el archivo [LICENSE](LICENSE).
