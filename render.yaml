@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: fastapi-csf
+    name: sat-constancia-fiscal-api
     runtime: python
     buildCommand: pip install -r requirements.txt
     startCommand: ./start.sh
