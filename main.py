@@ -28,8 +28,8 @@ def get_csf(url: str):
     # Intentamos extraer el valor de D3 de la URL
    match = re.search(r"[?&]D3=([\w\d]+_[\w\d]+)", url)
     
-    if not match:
-        raise HTTPException(status_code=400, detail="La URL no corresponde a un QR de una Constancia de Situación Fiscal")
+    # if not match:
+    #    raise HTTPException(status_code=400, detail="La URL no corresponde a un QR de una Constancia de Situación Fiscal")
     
     D3 = match.group(1)
     idcif, rfc = D3.split('_')
