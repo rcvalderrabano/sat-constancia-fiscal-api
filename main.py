@@ -26,7 +26,7 @@ def get_csf(rfc: str, id_cif: str):
 @app.get('/sat/csf/qr/', tags=['SAT'])
 def get_csf(url: str):
     # Intentamos extraer el valor de D3 de la URL
-    match = re.search(r"D3=(\d+_\w+)", url)
+   match = re.search(r"[?&]D3=([\w\d]+_[\w\d]+)", url)
     
     if not match:
         raise HTTPException(status_code=400, detail="La URL no corresponde a un QR de una Constancia de Situación Fiscal")
@@ -44,5 +44,7 @@ def get_csf(url: str):
         raise HTTPException(status_code=400, detail=f"Error en los parámetros proporcionados: {str(e)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error inesperado: {str(e)}")
+
+
 
 
