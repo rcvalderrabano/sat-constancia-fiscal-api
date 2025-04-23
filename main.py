@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from satcfdi import csf
+from urllib.parse import unquote
 import re
 
 app = FastAPI()
@@ -25,26 +26,46 @@ def get_csf(rfc: str, id_cif: str):
 # Traer la información desde el código QR de la constacia de situación fiscal
 @app.get('/sat/csf/qr/', tags=['SAT'])
 def get_csf(url: str):
+    # Decodificar la URL por si viene en formato URL-encoded (por ejemplo desde FastAPI Docs)
+    url = unquote(url)
+
     # Intentamos extraer el valor de D3 de la URL
-   match = re.search(r"[?&]D3=([\w\d]+_[\w\d]+)", url)
+    match = re.search(r"[?&]D3=([\w\d]+_[\w\d]+)", url)
     
-    # if not match:
-    #    raise HTTPException(status_code=400, detail="La URL no corresponde a un QR de una Constancia de Situación Fiscal")
+    if not match:
+        raise HTTPException(
+            status_code=400,
+            detail="La URL no corresponde a un QR de una Constancia de Situación Fiscal"
+        )
     
     D3 = match.group(1)
-    idcif, rfc = D3.split('_')
+    try:
+        idcif, rfc = D3.split('_')
+    except ValueError:
+        raise HTTPException(
+            status_code=400,
+            detail="El parámetro D3 no tiene el formato esperado (idcif_rfc)."
+        )
 
     # Realizamos la consulta con el RFC y el ID de CIF
     try:
         res = csf.retrieve(rfc, id_cif=idcif)
         if not res:
-            raise HTTPException(status_code=404, detail="No se encontró información para el RFC y ID de CIF proporcionados.")
+            raise HTTPException(
+                status_code=404,
+                detail="No se encontró información para el RFC y ID de CIF proporcionados."
+            )
         return res
     except ValueError as e:
-        raise HTTPException(status_code=400, detail=f"Error en los parámetros proporcionados: {str(e)}")
+        raise HTTPException(
+            status_code=400,
+            detail=f"Error en los parámetros proporcionados: {str(e)}"
+        )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error inesperado: {str(e)}")
-
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error inesperado: {str(e)}"
+        )
 
 
 
